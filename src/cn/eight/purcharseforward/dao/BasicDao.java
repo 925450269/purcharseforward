@@ -25,7 +25,6 @@ public class BasicDao {
 
     //修改功能；
     public void execUpdate(Connection con, PreparedStatement pst,Object...param) throws SQLException {
-
         if (param!=null) {
             for (int i = 0; i < param.length; i++) {
                 pst.setObject(i + 1, param[i]);
