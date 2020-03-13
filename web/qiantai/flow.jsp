@@ -1,10 +1,16 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title></title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
+<script>
+	function Carclear() {
+		window.location.href="goodsvl?reqType=ClearGood";
+    }
+</script>
 <body>
 <!--LOGO欢迎信息和登陆注册功能-->
 <div class="block clearfix">
@@ -26,10 +32,10 @@
 
 <!--顶层功能导航栏-->
 <div id="mainNav" class="clearfix">
-	<a href="main.jsp" class="cur">首页<span></span></a>
+	<a href="goodsvl?reqType=Main" class="cur">首页<span></span></a>
 	<a href="###">买家必看<span></span></a>
 	<a href="###">优惠活动<span></span></a>
-	<a href="flow.jsp">查看购物车<span></span></a>
+	<a href="goodsvl?reqType=Gocar">查看购物车<span></span></a>
 	<a href="###">报价单<span></span></a>
 	<a href="###">留言板<span></span></a>
 	<a href="###">团购商品<span></span></a>
@@ -44,7 +50,8 @@
 <!--购物车数据显示区-->
 <div class="flowBox">
 	<h6><span>商品列表</span></h6>
-	<form id="formCart" name="formCart" method="post" action="">
+	<form id="formCart" name="formCart" method="post" action="${pageContext.request.contextPath}/qiantai/goodsvl">
+		<input type="hidden" name="reqType" value="modGood">
 		<table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
 			<tr>
 				<th bgcolor="#ffffff">商品编号</th>
@@ -54,22 +61,25 @@
 				<th bgcolor="#ffffff">小计</th>
 				<th bgcolor="#ffffff">操作</th>
 			</tr>
+			<c:forEach items="${requestScope.carList}" var="cars">
 			<tr>
-				<td bgcolor="#ffffff" align="center">001</td>
-				<td bgcolor="#ffffff" align="center">aaaa</td>
-				<td bgcolor="#ffffff" align="center">11</td>
-				<td bgcolor="#ffffff" align="center"><input type="text" value="2"/></td>
-				<td bgcolor="#ffffff" align="center">123</td>
-				<td bgcolor="#ffffff" align="center"><a href="##">删除</a></td>
+				<td bgcolor="#ffffff" align="center">${cars.id}</td>
+				<input type="hidden" name="gooids" value="${cars.id}">
+				<td bgcolor="#ffffff" align="center">${cars.goodname}</td>
+				<td bgcolor="#ffffff" align="center">${cars.price}</td>
+				<td bgcolor="#ffffff" align="center"><input type="text" name="counts" value="${cars.count}"/></td>
+				<td bgcolor="#ffffff" align="center">${cars.price*cars.count}</td>
+				<td bgcolor="#ffffff" align="center"><a href="goodsvl?reqType=delGood&goodid=${cars.id}">删除</a></td>
 			</tr>
+			</c:forEach>
 		</table>
 		<table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
 			<tr>
 				<td bgcolor="#ffffff">
-					购物金额总计计 ￥0.00元
+					购物金额总计 ￥${requestScope.totalmoney}元
 				</td>
 				<td align="right" bgcolor="#ffffff">
-					<input type="button" value="清空购物车" class="bnt_blue_1" onclick="" />
+					<input type="button" value="清空购物车" class="bnt_blue_1" onclick="Carclear()" />
 					<input name="submit" type="submit" class="bnt_blue_1" value="更新购物车" />
 				</td>
 			</tr>
@@ -81,7 +91,7 @@
 				<a href="###"><img src="images/continue.gif" alt="continue" /></a>
 			</td>
 			<td bgcolor="#ffffff" align="right">
-				<a href="flow.php-step=checkout.htm"><img src="images/checkout.gif" alt="checkout" /></a>
+				<a href="goodsvl?reqType=paymon"><img src="images/checkout.gif" alt="checkout" /></a>
 			</td>
 		</tr>
 	</table>

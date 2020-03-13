@@ -17,7 +17,7 @@
 	    	<li class="userInfo">
   				<font id="ECS_MEMBERZONE">
 					<div id="append_parent"></div>
- 					欢迎光临本店&nbsp;&nbsp;&nbsp;&nbsp;
+ 					欢迎${sessionScope.user.username}光临本店&nbsp;&nbsp;&nbsp;&nbsp;
  					<a href="login.jsp"><img src="images/bnt_log.gif"/></a>
  					<a href="register.jsp"><img src="images/bnt_reg.gif"/></a>
  				</font>
@@ -29,10 +29,10 @@
 
 <!--顶层功能导航栏-->
 <div id="mainNav" class="clearfix">
-	<a href="main.jsp" class="cur">首页<span></span></a>
+	<a href="goodsvl?reqType=Main" class="cur">首页<span></span></a>
 	<a href="###">买家必看<span></span></a>
 	<a href="###">优惠活动<span></span></a>
-	<a href="flow.jsp">查看购物车<span></span></a>
+	<a href="goodsvl?reqType=Gocar">查看购物车<span></span></a>
 	<a href="###">报价单<span></span></a>
 	<a href="###">留言板<span></span></a>
 	<a href="###">团购商品<span></span></a>
@@ -60,23 +60,20 @@
     	<div class="blank5"></div>
 		<!--左侧购物车-->
 		<div class="cart" id="ECS_CARTINFO">
- 			<a href="flow.php.htm" title="查看购物车">您的购物车中有 0 件商品，总计金额 ￥0.00元。</a>
+ 			<a href="goodsvl?reqType=Gocar" title="查看购物车">您的购物车中有 ${requestScope.count} 件商品，总计金额 ￥${requestScope.talmoney}元。</a>
 		</div>
 		<div class="blank5"></div>
 		<!--左侧分类栏-->
 		<div class="box">
  			<div class="box_1">
   				<div id="category_tree">
+					<c:forEach items="${allGoodTypes}" var="type">
          			<dl>
      					<dt>
-							<a href="category.php-id=12.htm">类别1</a>
+							<a href="goodsvl?reqType=Main&goodType=${type}">${type}</a>
 						</dt>
 	       			</dl>
-					<dl>
-     					<dt>
-							<a href="category.php-id=12.htm">类别2</a>
-						</dt>
-	       			</dl>
+					</c:forEach>
   				</div>
  			</div>
 		</div>
@@ -89,27 +86,15 @@
   				<div class="itemTit" id="itemBest"></div>
   				<div id="show_best_area" class="clearfix goodsBox">
 					<!--单个商品展示信息-->
+					<c:forEach var="good" items="${GoodsList}">
       				<div class="goodsItem">
          				<span class="best"></span>
-           				<a href="flow.jsp">
-							<img src="" alt="测试商品1" class="goodsimg" /></a>
-           				<p><a href="flow.jsp" title="测试商品1">测试商品1</a></p>
-           				<font class="f1">￥55元</font>
+           				<a href="goodsvl?reqType=addGoodCar&gid=${good.id}">
+							<img src="goodsvl?reqType=downImg&filename=${good.pic}" alt="测试商品1" class="goodsimg" /></a>
+           				<p><a href="goodsvl?reqType=addGoodCar&gid=${good.id}" title="测试商品1">${good.goodname}</a></p>
+           				<font class="f1">${good.price}</font>
         			</div>
-        			<div class="goodsItem">
-         				<span class="best"></span>
-           				<a href="flow.jsp">
-							<img src="" alt="测试商品1" class="goodsimg" /></a>
-           				<p><a href="flow.jsp" title="测试商品1">测试商品1</a></p>
-           				<font class="f1">￥55元</font>
-        			</div>
-        			<div class="goodsItem">
-         				<span class="best"></span>
-           				<a href="flow.jsp">
-							<img src="" alt="测试商品1" class="goodsimg" /></a>
-           				<p><a href="flow.jsp" title="测试商品1">测试商品1</a></p>
-           				<font class="f1">￥55元</font>
-        			</div>
+					</c:forEach>
     				<div class="more"><a href="###"><img src="images/more.gif" /></a></div>
     			</div>
 			</div>

@@ -5,11 +5,12 @@ package cn.eight.purcharseforward.pojo;
  * @create 2020-02-29
  */
 public class Good {
-    private  int id;
-    private  String  goodname;
-    private  String  goodtype;
-    private  Double  price;
-    private  String  pic; //上传文件的图片
+    private int id;
+    private String goodname;
+    private String goodtype;
+    private Double price;
+    private String pic; //上传文件的图片
+    private Integer count;
 
     public Good() {
     }
@@ -61,4 +62,8 @@ public class Good {
     public void setPic(String pic) {
         this.pic = pic;
     }
+
+    public Integer getCount() { return count; }
+
+    public void setCount(Integer count) { this.count = count; }
 }

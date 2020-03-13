@@ -156,6 +156,7 @@
 						<input name="Submit" type="submit" value="" class="us_Submit_reg"/>
 					</td>
 				</tr>
+				${info}
 				<tr>
 					<td>&nbsp;</td>
 					<td class="actionSub">
